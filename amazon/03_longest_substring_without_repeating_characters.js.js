@@ -27,7 +27,7 @@
  * @return {number}
  */
 
-const s = 'abcabcbb'
+const s = 'pwwkew'
 
 var lengthOfLongestSubstring = function (s) {
   let maxLen = 0

@@ -84,7 +84,7 @@
  * @return {number}
  */
 
-const input = '  -1337c0d3'
+const input = '1337c0d3'
 
 var myAtoi = function (s) {
   // trim leading/trailing spaces
