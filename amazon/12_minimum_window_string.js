@@ -42,16 +42,45 @@ const t = 'ABC'
 var minWindow = function (s, t) {
   if (t.length > s.length) return ''
 
-  // build frequency map for string t
+  // Step 1️⃣: build frequency map for string t
   const needCount = {}
-  for (c of t) {
+  for (let c of t) {
     needCount[c] = (needCount[c] || 0) + 1
   }
-
   const needKinds = Object.keys(needCount).length
-  console.log(needKinds)
-  
-  return needCount
+
+  // Step 2️⃣: setup sliding window variables
+  const windowCount = {} // keeps track of what's inside the window
+  let haveKinds = 0 // how many kinds we’ve satisfied so far
+  let left = 0 // left pointer
+  let minLen = Infinity // track best (smallest) window length
+  let res = '' // final substring result
+
+  // Step 3️⃣: expand the window with right pointer
+  for (let right = 0; right < s.length; right++) {
+    const char = s[right]
+
+    // add char to window count
+    windowCount[char] = (windowCount[char] || 0) + 1
+
+    // ✅ check if this char just satisfied its needed amount
+    if (needCount[char] && windowCount[char] === needCount[char]) {
+      haveKinds++
+    }
+
+    // 🧠 now we’ll later shrink the window only when valid
+    // but for now, let's log to see what we have:
+    console.log({
+      right,
+      char,
+      windowCount,
+      haveKinds,
+      needKinds,
+    })
+  }
+
+  // placeholder return so it runs without error
+  return res
 }
 
 console.log(minWindow(s, t))
