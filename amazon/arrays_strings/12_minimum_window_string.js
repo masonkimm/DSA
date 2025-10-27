@@ -40,47 +40,43 @@ const s = 'ADOBECODEBANC'
 const t = 'ABC'
 
 var minWindow = function (s, t) {
-  if (t.length > s.length) return ''
+  if (t.length > s.length) return ""
 
-  // Step 1️⃣: build frequency map for string t
-  const needCount = {}
-  for (let c of t) {
-    needCount[c] = (needCount[c] || 0) + 1
-  }
-  const needKinds = Object.keys(needCount).length
+  // Step 1: frequency map for t
+  const need = {}
+  for (let c of t) need[c] = (need[c] || 0) + 1
+  let needCount = Object.keys(need).length
 
-  // Step 2️⃣: setup sliding window variables
-  const windowCount = {} // keeps track of what's inside the window
-  let haveKinds = 0 // how many kinds we’ve satisfied so far
-  let left = 0 // left pointer
-  let minLen = Infinity // track best (smallest) window length
-  let res = '' // final substring result
+  // Step 2: sliding window
+  let left = 0
+  let minLen = Infinity
+  let start = 0
+  const window = {}
 
-  // Step 3️⃣: expand the window with right pointer
   for (let right = 0; right < s.length; right++) {
-    const char = s[right]
+    const c = s[right]
+    window[c] = (window[c] || 0) + 1
 
-    // add char to window count
-    windowCount[char] = (windowCount[char] || 0) + 1
+    if (need[c] && window[c] === need[c]) needCount--
 
-    // ✅ check if this char just satisfied its needed amount
-    if (needCount[char] && windowCount[char] === needCount[char]) {
-      haveKinds++
+    // Step 3: shrink when valid
+    while (needCount === 0) {
+      if (right - left + 1 < minLen) {
+        minLen = right - left + 1
+        start = left
+      }
+
+      const leftChar = s[left]
+      window[leftChar]--
+      if (need[leftChar] && window[leftChar] < need[leftChar]) {
+        needCount++
+      }
+      left++
     }
-
-    // 🧠 now we’ll later shrink the window only when valid
-    // but for now, let's log to see what we have:
-    console.log({
-      right,
-      char,
-      windowCount,
-      haveKinds,
-      needKinds,
-    })
   }
 
-  // placeholder return so it runs without error
-  return res
+  return minLen === Infinity ? "" : s.slice(start, start + minLen)
 }
+
 
 console.log(minWindow(s, t))
