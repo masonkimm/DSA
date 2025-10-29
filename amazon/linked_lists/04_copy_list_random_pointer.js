@@ -12,32 +12,24 @@
 // random_index: the index of the node (range from 0 to n-1) that the random pointer points to, or null if it does not point to any node.
 // Your code will only be given the head of the original linked list.
 
- 
-
 // Example 1:
-
 
 // Input: head = [[7,null],[13,0],[11,4],[10,2],[1,0]]
 // Output: [[7,null],[13,0],[11,4],[10,2],[1,0]]
+
 // Example 2:
-
-
 // Input: head = [[1,1],[2,1]]
 // Output: [[1,1],[2,1]]
+
 // Example 3:
-
-
-
 // Input: head = [[3,null],[3,0],[3,null]]
 // Output: [[3,null],[3,0],[3,null]]
- 
 
 // Constraints:
 
 // 0 <= n <= 1000
 // -104 <= Node.val <= 104
 // Node.random is null or is pointing to some node in the linked list.
-
 
 /**
  * // Definition for a _Node.
@@ -52,6 +44,44 @@
  * @param {_Node} head
  * @return {_Node}
  */
-var copyRandomList = function(head) {
-    
-};
+
+function _Node(val, next, random) {
+  this.val = val
+  this.next = next
+  this.random = random
+}
+
+const head = [
+  [7, null],
+  [13, 0],
+  [11, 4],
+  [10, 2],
+  [1, 0],
+]
+
+var copyRandomList = function (head) {
+  if (!head) return null
+
+  let map = new Map()
+
+  let current = head
+
+  // create all copies
+  while (current) {
+    map.set(current, new _Node(current.val))
+    current = current.next
+  }
+
+  // link next and random pointers
+  current = head
+  while (current) {
+    map.get(current).next = map.get(current.next) || null
+    map.get(current).random = map.get(current.random) || null
+    current = current.next
+  }
+
+  // return copied head
+  return map.get(head)
+}
+
+console.log(copyRandomList(head))
