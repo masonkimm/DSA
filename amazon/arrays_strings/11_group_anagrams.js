@@ -37,14 +37,23 @@ const input = ['eat', 'tea', 'tan', 'ate', 'nat', 'bat']
 // Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
 
 var groupAnagrams = function (strs) {
+  /**
+   * sort the strings to group by the same key
+   * check map, create new key group by the sorted value IF it doesnt exist
+   * when looping, if the group key exist, push the actual word into the corresponding key group
+   */
+  
+  // create a map to hold the key:value pairs
   const map = new Map()
 
   for (let word of strs) {
     const sorted = word.split('').sort().join('')
+    console.log(sorted)
 
     if (!map.has(sorted)){
       map.set(sorted, [])
     }
+    console.log(map)
     map.get(sorted).push(word)
   }
 

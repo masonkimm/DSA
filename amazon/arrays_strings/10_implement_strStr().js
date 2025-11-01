@@ -24,17 +24,33 @@
  */
 
 const a = 'sadbutsad'
-const b = 'sad'
+const b = 'but'
 
 var strStr = function (haystack, needle) {
-  const m = haystack.length
-  const n = needle.length
+  const m = haystack.length // 9
+  const n = needle.length // 3
 
+  // for loop from 0 to 6 (9-3)
   for (i=0; i< m-n; i++){
     if (haystack.slice(i, i+n)=== needle){
       return i
     }
   }
+
+  //first loop: i=0; i < 6, haystack.slice(0,3) === 'sad' === needle --> return 0
+  //second loop: i=1, haystack.slice(1,4) === 'adb' !== needle --> go to next loop
+  //third loop: i=2, haystack.slice(2,5) === 'dbu' !== needle --> go to next loop
+  //fourth loop: i=3, haystack.slice(3,6) === 'but' !== needle --> go to next loop
+  //fifth loop: i=4, haystack.slice(4,7) === 'uts' !== needle --> go to next loop
+  //sixth loop: i=5, haystack.slice(5,8) === 'tsa' !== needle --> go to next loop
+  //seventh loop: i=6, haystack.slice(6,9) === 'sad' === needle --> return 6
+
+  //first loop: i=0; i < 6, haystack.slice(0,3) === 'sad' !== 'but' --> go to next loop
+  //second loop: i=1, haystack.slice(1,4) === 'adb' !== 'but' --> go to next loop
+  //third loop: i=2, haystack.slice(2,5) === 'dbu' !== 'but' --> go to next loop
+  //fourth loop: i=3, haystack.slice(3,6) === 'but' === 'but' --> return 3
+  
+
   return -1
 }
 // var strStr = function (haystack, needle) {

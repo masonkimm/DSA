@@ -51,20 +51,33 @@ const map = {
   '{': '}',
 }
 
-const stack = '([])'
+const stack = '[]'
 
 var isValid = function (s) {
+  /**
+   * use a stack to keep track of opening brackets
+   * when encounter a closing bracket, pop the last opening bracket from the stack and check if it matches
+   * if it doesnt match, return false
+   * at the end, if the stack is empty, return true
+   */
   const stack = []
 
   for (let char of s) {
-    if (map[char]) {
+    console.log(char)
+    if (map[char]) { // if map has key: [ /// 2nd loop: ] --> go to else
+      // push push the value of key('[') into the stack (']')
       stack.push(map[char])
+      // stack = [']']
       console.log(stack)
-    } else {
+    } else { //if it doesnt have (
+      // then check if the last value does not equal char (']')
       if (stack.pop() !== char) return false
+      // (if '] !== ']') return false /// but ] =]
+
+      // by stack will be empty from the pop
     }
   }
-  return stack.length === 0
+  return stack.length === 0 // return true
 }
 
 console.log(isValid(stack))

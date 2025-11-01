@@ -11,6 +11,7 @@
 5) parseInt(x)
 6) x.indexOf(searchVal, startIndex)
   - returns the index of the first occurence of the substring inside the main string
+  - find the first index at which a given element can be found within a string or an array
   - if not found ==> -1
   - startIndex (optional)
 7) new Map()

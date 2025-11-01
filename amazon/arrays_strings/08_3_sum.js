@@ -36,58 +36,6 @@
 // const nums = [0, 1, -1]
 const nums = [-1, 0, 1, 2, -1, -4]
 
-// var threeSum = function (nums) {
-//   let ans = []
-
-//   nums.sort((a, b) => a - b)
-
-//   for (let i = 0; i < nums.length; i++) {
-//     if (i > 0 && nums[i] === nums[i-1]) continue
-
-//     for (let j = i + 1; j < nums.length; j++) {
-//       if (j > i +1 && nums[j] === nums[j-1]) continue
-
-//       for (let k = j + 1; k < nums.length; k++) {
-//         if (nums[i] + nums[j] + nums[k] == 0 && i != j && i != k && j != k) {
-//           ans.push([nums[i], nums[j], nums[k]])
-//         }
-//       }
-//     }
-//   }
-//   return ans
-// }
-
-// var threeSum = function (nums) {
-//   let ans = []
-
-//   nums.sort((a, b) => a - b)
-
-//   for (let i = 0; i < nums.length; i++) {
-//     if (i > 0 && nums[i] === nums[i - 1]) continue // skip duplicate i
-
-//     let left = i + 1
-//     let right = nums.length - 1
-
-//     while (left < right) {
-//       let sum = nums[i] + nums[left] + nums[right]
-
-//       if (sum === 0) {
-//         ans.push([nums[i], nums[left], nums[right]])
-//         // skip duplicates
-//         while (left < right && nums[left] === nums[left + 1]) left++
-//         while (left < right && nums[right] === nums[right - 1]) right--
-
-//         left++
-//         right--
-//       } else if (sum < 0) {
-//         left++
-//       } else {
-//         right--
-//       }
-//     }
-//   }
-//   return ans
-// }
 
 var threeSum = function (nums) {
   let ans = new Set()
@@ -99,7 +47,15 @@ var threeSum = function (nums) {
     let right = nums.length - 1
 
     while (left < right) {
-      const sum = nums[i] + nums[left] + nums[right]
+      const sum = nums[i] + nums[left] + nums[right] 
+      
+      //first loop: -1 + 0 + 4 = 3  --> go to else
+      //second loop: -1 + 0 + -1 = -2 --> go to else if
+      //third loop: -1 + 1 + -1 = -1 --> go to else if
+      //fourth loop: -1 + 2 + -1 = 0 --> go to if
+      //ans add '-1,2,-1'
+      // then left++ == -1, right-- == 2 
+      // then the while loop ends
 
       if (sum == 0) {
         ans.add(`${nums[i]}, ${nums[left]}, ${nums[right]}`)
@@ -109,6 +65,7 @@ var threeSum = function (nums) {
         left++
       } else {
         right--
+
       }
     }
   }

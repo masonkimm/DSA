@@ -33,6 +33,7 @@ var threeSumClosest = function (nums, target) {
   nums.sort((a, b) => a - b)
 
   let closest = nums[0] + nums[1] + nums[2]
+  // closest = -1 + 2 + 1 = 2
 
 
   for (let i = 0; i < nums.length; i++) {
@@ -40,6 +41,22 @@ var threeSumClosest = function (nums, target) {
     let right = nums.length - 1
     while (left < right) {
       const sum = nums[i] + nums[left] + nums[right]
+
+      // first loop: 
+      // sum = -1 + 2 + -4 = -3; 
+      // closest = 2
+
+      // go to 1st if:
+      // sum(-3) - target(1) = -4 && closest(2) - target(1) = 1
+      // Math.abs(4) < Math.abs(1) --> go to 2nd if
+      // sum(-3) < target (1)
+      // left++ 
+      // sum = -1 + 1 + -4 = -4
+
+      // abs(4) < abs (1)
+      // left++
+      // sum = -1 + -4 + -4 = -1
+      // abs(1) < target 1
 
       if (Math.abs(sum - target) < Math.abs(closest - target)){
         closest = sum

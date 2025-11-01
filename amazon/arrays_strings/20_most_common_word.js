@@ -36,63 +36,55 @@ const paragraph = 'Bob hit a ball, the hit BALL flew far after it was hit.'
 
 const banned = ['hit']
 
-// const paragraph = "a."
-// const banned = []
-
-// var mostCommonWord = function (paragraph, banned) {
-//   let cleaned = paragraph
-//     .toLowerCase()
-//     .replace(/[^a-z\s]/g, '')
-//     .split(' ')
-
-//   let filtered = cleaned.filter((x) => x !== banned[0])
-
-//   let count = {}
-//   for (word of filtered) {
-//     count[word] = (count[word] || 0) + 1
-//   }
-
-//   let maxKey = ''
-//   let maxVal = 0
-
-//   for (let key in count) {
-//     if (count[key] > maxVal) {
-//       maxVal = count[key]
-//       maxKey = key
-//     }
-//   }
-
-//   return maxKey
-// }
-
 var mostCommonWord = function (paragraph, banned) {
   // Step 1: clean text
   const words = paragraph
-    .toLowerCase()
-    .replace(/[^a-z\s]/g, ' ')
-    .split(' ')
-    .filter(Boolean) // removes empty strings
+    .toLowerCase() // 'Bob hit a ball, the hit BALL flew far after it was hit.' --> 'bob hit a ball, the hit ball flew far after it was hit.'
+    .replace(/[^a-z\s]/g, ' ') // remove punctuation --> 'bob hit a ball  the hit ball flew far after it was hit '
+    .split(' ') // split into words --> ['bob', 'hit', 'a', 'ball', '', 'the', 'hit', 'ball', 'flew', 'far', 'after', 'it', 'was', 'hit', '']
+    .filter(Boolean) // removes empty strings --> ['bob', 'hit', 'a', 'ball', 'the', 'hit', 'ball', 'flew', 'far', 'after', 'it', 'was', 'hit']
 
   // Step 2: handle banned words
-  const bannedSet = new Set(banned)
+  const bannedSet = new Set(banned) // {'hit'}
 
   // Step 3: count non-banned words
-  const count = {}
+  const count = {} // {}
+
   for (let word of words) {
     if (!bannedSet.has(word)) {
       count[word] = (count[word] || 0) + 1
     }
   }
+  // count = {'bob': 1, 'a': 1, 'ball': 2, 'the': 1, 'flew': 1, 'far': 1, 'after': 1, 'it': 1, 'was': 1}
 
   // Step 4: find word with max count
   let maxKey = ''
   let maxVal = 0
+
   for (let key in count) {
     if (count[key] > maxVal) {
       maxVal = count[key]
       maxKey = key
     }
   }
+
+  // if (count['bob'] > 0) {
+  //   maxVal = 1
+  //   maxKey = 'bob'
+  // }
+  // if (count['a'] > 1) {
+  //   maxVal = 1
+  //   maxKey = 'a'
+  // }
+  // if (count['ball'] > 1) {
+  //   maxVal = 2
+  //   maxKey = 'ball'
+  // }
+  // if (count['the'] > 2) {
+  //   does not get here since 1 > 2 is false
+  // }
+  // ...etc
+
 
   return maxKey
 }
