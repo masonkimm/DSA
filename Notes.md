@@ -16,3 +16,5 @@
   - startIndex (optional)
 7) new Map()
   - used to stare key-value pairs
+8) x.splice(start, deleteCount, item1, item2, /* …, */ itemN)
+- changes the contents of an array by removing or replacing existing elements and/or adding new elements in place
